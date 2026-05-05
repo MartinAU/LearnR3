@@ -83,21 +83,19 @@ read <- function(file_path) {
 }
 ```
 
+
+
 ```{r}
-here("data-raw/nurses-stress/stress/5C/5C_1586886626/HR.csv.gz") |>
-  read()
-```
-```{r}
-#' Test function 
+#' Test function
 #'
-#' @param file_path 
-#' @param max_rows 
+#' @param file_path
+#' @param max_rows
 #'
 #' @returns your taxes, fiscal year 1987
 
 read <- function(file_path, max_rows = 100) {
   data <- file_path |>
-    read_csv(
+    readr::read_csv(
       show_col_types = FALSE,
       name_repair = to_snake_case,
       n_max = max_rows
