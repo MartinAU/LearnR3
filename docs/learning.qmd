@@ -3,11 +3,12 @@ title: "learning"
 author: "ML"
 format: html
 ---
-## 
+## SETUP Chunk
 ```{r setup}
 library(tidyverse)
 library(here)
 library(snakecase)
+source(here("R/functions.R"))
 ```
 
 ##Importing new data
@@ -20,8 +21,6 @@ here("data-raw/nurses-stress/stress/5C/5C_1586886626/HR.csv.gz") |>
   )
 ```
 
-## remember to use readr::read_csv()
-
 ## Exercise: Reading other files
 
 ```{r}
@@ -32,6 +31,7 @@ here("data-raw/nurses-stress/stress/5C/5C_1586886712/HR.csv.gz") |>
     n_max = 100
   )
 ```
+## Exercise: Reading other files, case 2
 
 ```{r}
 here("data-raw/nurses-stress/stress/6B/6B_1587569373/EDA.csv.gz") |>
@@ -40,7 +40,7 @@ here("data-raw/nurses-stress/stress/6B/6B_1587569373/EDA.csv.gz") |>
     name_repair = to_snake_case,
   )
 ```
-
+## Exercise: Limit rows
 
 ```{r}
 here("data-raw/nurses-stress/stress/6B/6B_1587569373/EDA.csv.gz") |>
@@ -50,6 +50,8 @@ here("data-raw/nurses-stress/stress/6B/6B_1587569373/EDA.csv.gz") |>
     n_max = 100
   )
 ```
+
+## Exercise: Create function
 
 ```{r}
 #' Add two number together
@@ -64,6 +66,7 @@ add_numbers <- function(num1, num2) {
 }
 ```
 
+## Exercise: create functions, continued
 
 ```{r}
 #' Read in one nurses stress data file
@@ -83,7 +86,7 @@ read <- function(file_path) {
 }
 ```
 
-
+## Exercise: final function
 
 ```{r}
 #' Test function
