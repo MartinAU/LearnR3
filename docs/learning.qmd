@@ -1,0 +1,23 @@
+---
+title: "learning"
+author: "ML"
+format: html
+---
+## 
+```{r setup}
+library(tidyverse)
+library(here)
+library(snakecase)
+```
+
+##Importing new data
+```{r}
+here("data-raw/nurses-stress/stress/5C/5C_1586886626/HR.csv.gz") |>
+  read_csv(
+    show_col_types = FALSE,
+    name_repair = "unique",
+    n_max = 100
+  )
+```
+
+## remember to use readr::read_csv()
