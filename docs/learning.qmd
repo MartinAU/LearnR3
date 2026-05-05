@@ -7,7 +7,6 @@ format: html
 ```{r setup}
 library(tidyverse)
 library(here)
-library(snakecase)
 ```
 
 ##Importing new data
@@ -21,3 +20,32 @@ here("data-raw/nurses-stress/stress/5C/5C_1586886626/HR.csv.gz") |>
 ```
 
 ## remember to use readr::read_csv()
+
+## Exercise: Reading other files
+
+```{r}
+here("data-raw/nurses-stress/stress/5C/5C_1586886712/HR.csv.gz") |>
+  read_csv(
+    show_col_types = FALSE,
+    name_repair = "unique",
+    n_max = 100
+  )
+```
+
+```{r}
+here("data-raw/nurses-stress/stress/6B/6B_1587569373/EDA.csv.gz") |>
+  read_csv(
+    show_col_types = FALSE,
+    name_repair = "unique"
+  )
+```
+
+
+```{r}
+here("data-raw/nurses-stress/stress/6B/6B_1587569373/EDA.csv.gz") |>
+  read_csv(
+    show_col_types = FALSE,
+    name_repair = "unique",
+    n_max = 100
+  )
+```
