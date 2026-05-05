@@ -7,6 +7,7 @@ format: html
 ```{r setup}
 library(tidyverse)
 library(here)
+library(snakecase)
 ```
 
 ##Importing new data
@@ -14,7 +15,7 @@ library(here)
 here("data-raw/nurses-stress/stress/5C/5C_1586886626/HR.csv.gz") |>
   read_csv(
     show_col_types = FALSE,
-    name_repair = "unique",
+    name_repair = to_snake_case,
     n_max = 100
   )
 ```
@@ -27,7 +28,7 @@ here("data-raw/nurses-stress/stress/5C/5C_1586886626/HR.csv.gz") |>
 here("data-raw/nurses-stress/stress/5C/5C_1586886712/HR.csv.gz") |>
   read_csv(
     show_col_types = FALSE,
-    name_repair = "unique",
+    name_repair = to_snake_case, ,
     n_max = 100
   )
 ```
@@ -36,7 +37,7 @@ here("data-raw/nurses-stress/stress/5C/5C_1586886712/HR.csv.gz") |>
 here("data-raw/nurses-stress/stress/6B/6B_1587569373/EDA.csv.gz") |>
   read_csv(
     show_col_types = FALSE,
-    name_repair = "unique"
+    name_repair = to_snake_case,
   )
 ```
 
@@ -48,4 +49,17 @@ here("data-raw/nurses-stress/stress/6B/6B_1587569373/EDA.csv.gz") |>
     name_repair = "unique",
     n_max = 100
   )
+```
+
+```{r}
+#' Add two number together
+#'
+#' @param One number
+#' @param Another number here
+#'
+#' @returns returns the sum of two numbers
+add_numbers <- function(num1, num2) {
+  added <- num1 + num2
+  return(added)
+}
 ```
