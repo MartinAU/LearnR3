@@ -288,3 +288,87 @@ hr_data |>
     .by = c(id, collection_datetime)
   )
 ```
+
+```{r}
+survey_data <- here("data-raw/nurses-stress/survey-results.csv.gz") |>
+  read()
+survey_data
+```
+
+```{r}
+survey_tidy <- survey_data |>
+  mutate(
+    date = mdy(date),
+    start_datetime = as_datetime(paste(date, start_time)),
+    end_datetime = as_datetime(paste(date, end_time)),
+    datetime_id = start_datetime,
+    .before = start_time
+  ) |>
+  select(-c(date, start_time, end_time, duration))
+```
+
+```{r}
+survey_tidy |>
+  select(id, datetime_id, start_datetime, end_datetime) |>
+  pivot_longer(c(start_datetime, end_datetime), names_to = NULL, values_to = "collection_datetime") |>
+  group_by(pick(-collection_datetime)) |>
+  complete(collection_datetime = seq(min(collection_datetime),
+    max(collection_datetime),
+    by = 60
+  )) |>
+  ungroup()
+```
+
+
+## Convert into two new functions 
+
+```{r}
+#' Date cleaning function
+#'
+#' @param Cleans up dates
+#'
+#' @returns a data frame
+
+tidy_survey_dates <- function(data) {
+  tidied <- data |>
+    dplyr::mutate(
+      date = lubridate::mdy(date),
+      start_datetime = lubridate::as_datetime(paste(date, start_time)),
+      end_datetime = lubridate::as_datetime(paste(date, end_time)),
+      datetime_id = start_datetime,
+      .before = start_time
+    ) |>
+    dplyr::select(-c(date, start_time, end_time, duration))
+  return(tidied)
+}
+
+survey_data |>
+  tidy_survey_dates()
+
+## Function #2: Survey to long function
+
+#' Conversion to longer
+#'
+#' @param time
+#'
+#' @returns data frame
+survey_to_long <- function(data) {
+  longer <- data |>
+    dplyr::select(id, datetime_id, start_datetime, end_datetime) |>
+    tidyr::pivot_longer(
+      c(start_datetime, end_datetime),
+      names_to = NULL,
+      values_to = "collection_datetime"
+    ) |>
+    dplyr::group_by(dplyr::pick(-collection_datetime)) |>
+    tidyr::complete(
+      collection_datetime = seq(
+        min(collection_datetime),
+        max(collection_datetime),
+        by = 60
+      )
+    ) |>
+    dplyr::ungroup()
+  return(longer)
+}
+```

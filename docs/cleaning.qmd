@@ -3,3 +3,12 @@ title: "cleaning"
 format: html
 ---
 
+## Process survey data (21.5 Add survey processing to docs/cleaning.qmd)
+```{r}
+survey_tidy <- here::here("data-raw/nurses-stress/survey-results.csv.gz") |>
+  read() |>
+  tidy_survey_dates()
+
+survey_long <- survey_tidy |>
+  survey_to_long()
+```

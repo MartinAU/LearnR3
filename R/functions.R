@@ -15,3 +15,27 @@ read <- function(file_path, max_rows = 10) {
   return(data)
 }
 
+#' Summarise values in a data frame by a rounded datetime
+#'
+#' @param data A data frame with at least a `collection_datetime` column and
+#'  some numeric columns to summarise.
+#'
+#' @returns A summarised data frame.
+#'
+summarise_by_datetime <- function(data) {
+  summarised_data <- data |>
+    dplyr::mutate(
+      collection_datetime = lubridate::round_date(
+        collection_datetime,
+        unit = "minute"
+      )
+    ) |>
+    dplyr::summarise(
+      dplyr::across(
+        tidyselect::where(is.numeric),
+        list(mean = mean, sd = sd, median = median)
+      ),
+      .by = c(id, collection_datetime)
+    )
+  return(summarised_data)
+}

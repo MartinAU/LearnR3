@@ -10,6 +10,7 @@ Imports:
     lubridate,
     purrr,
     readr,
-    snakecase
+    snakecase,
+    tidyr
 Depends: 
     tidyverse
