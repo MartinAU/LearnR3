@@ -372,3 +372,41 @@ survey_to_long <- function(data) {
   return(longer)
 }
 ```
+
+## Joining datasets
+
+```{r}
+survey_long |> 
+  left_join(survey_tidy)
+survey_data
+
+survey_long |> 
+  right_join(survey_tidy)
+
+survey_long |> 
+  full_join(survey_tidy)
+
+
+
+```
+
+##Full join data
+
+```{r}
+nurses_stress <- survey_long |>
+  full_join(survey_tidy) |> 
+  full_join(hr_data)
+
+nurses_stress |> 
+  arrange(id, collection_datetime) |> 
+  View()
+```
+
+??full_join
+
+
+
+
+
+
+
